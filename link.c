@@ -82,6 +82,28 @@ void insertLink(link **p, int elem, int index)
 }
 
 
+void reverseLink(link **p)
+{
+	link *tmp = *p;
+	link *beg = NULL;
+	link *end = NULL;
+	if (tmp != NULL && tmp->next != NULL)
+	{
+		beg = tmp;
+		end = tmp->next;
+		while( tmp->next )
+		{
+			beg->next = end->next;
+			end->next = tmp;
+			tmp = end;
+			end = beg->next;
+		}
+
+		*p = tmp;
+	}
+}
+
+
 // 删除链表元素
 void deleteLink(link **p, int index)
 {
@@ -108,6 +130,39 @@ void deleteLink(link **p, int index)
 }
 
 
+// 查找链表元素
+/*link selectLink(link *p, int elem)
+{
+	if (p != NULL && elem > 0)
+	{
+		while(p)
+		{
+			if (p->elem == elem)
+			{
+				return p;
+			}
+			p = p->next;
+		}
+	}
+
+	return NULL;
+}*/
+
+
+// 计算链表长度
+int countLink(link *p)
+{
+	int len = 0;
+	while(p)
+	{
+		len++;
+		p = p->next;
+	}
+
+	return len;
+}
+
+
 int main()
 {
 	link *p = NULL;
@@ -120,5 +175,8 @@ int main()
 	insertLink(&p, 79, 2);
 	deleteLink(&p, 1);
 	displayLink(p);
+
+	int len = countLink(p);
+	printf("Link length is:%d\n", len);
 	return 0;
 }
